@@ -25,7 +25,10 @@ A API CRUD oferece as seguintes funcionalidades:
 3. Configure as informações de conexão do banco de dados no arquivo `.env`.
 4. Execute as migrações do banco de dados usando o comando `php artisan migrate`.
 5. Instale as chaves do Passport usando o comando `php artisan passport:install`.
-6. Inicie o servidor de desenvolvimento com o comando `php artisan serve`.
+6. Execute a seeder para criar as roles e usuários iniciais executando o comando php artisan db:seed --class=RolesAndUsersSeeder.
+7. Inicie o servidor de desenvolvimento com o comando php artisan serve.
+
+Certifique-se de que o Composer, o PHP e o banco de dados estejam configurados corretamente em seu ambiente antes de prosseguir com os passos acima.
 
 ## Rotas da API
 

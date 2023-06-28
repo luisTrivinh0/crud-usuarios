@@ -3,18 +3,23 @@
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function index()
     {
+        Gate::authorize('view-admins');
+
         $admins = Admin::all();
         return response()->json($admins);
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('create-admin');
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -37,11 +42,15 @@ class AdminController extends Controller
 
     public function show(Admin $admin)
     {
+        Gate::authorize('view-admin', $admin);
+
         return response()->json($admin);
     }
 
     public function update(Request $request, Admin $admin)
     {
+        Gate::authorize('update-admin', $admin);
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $admin->user_id . ',user_id',
@@ -66,6 +75,8 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
+        Gate::authorize('delete-admin', $admin);
+
         $user = $admin->user;
         $admin->delete();
         $user->delete();
